@@ -5,7 +5,39 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>elijahmvaldez</title>
-    <link rel="icon" type="image/png" href="flower.png">
+
+    <link rel="icon" type="image/png" href="flower.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="flower.png"/>
+    <link rel="icon" type="image/png" sizes="16x16" href="flower.png"/>
+    <link rel="apple-touch-icon" sizes="256x256" href="flower.png"/>
+
+    <meta name="keywords" content="elijahmvaldez, music, alternative, independent, texas">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#ffdec9" />
+    <meta name="apple-mobile-web-app-title" content="Elijah Valdez" />
+
+    <meta property="og:title" content="Elijah Valdez" />
+    <meta property="og:url" content="https://elijahmvaldez.com" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://elijahmvaldez.com/elijah-img.pnf"/>
+    <meta property="og:description" content="I Love This EP out early 2023. Pre-save now."/>
+
+    <meta name="description" content="I Love This EP out early 2023. Pre-save now."/>
+    <meta name="robots" content="index, follow" />
+    <meta name="http-equiv" content="X-Robots-Tag : index, follow" />
+    <meta name="googlebot" content="index, follow" />
+
+    <meta name="twitter:card" content="summary" />
+
+
+
+
+
+
+
+
+
+
 </head>
 <body>
     <div class="img-div">
@@ -15,7 +47,7 @@
     </div>
 
     <footer>
-        © 2023 Elijah Valdez. All rights reserved. Made with <a class="footer-link" href="https://github.com/fiji05" target="_blank">Parker M.</a>
+        © 2023 Elijah Valdez. All rights reserved. Made by <a class="footer-link" href="https://github.com/fiji05" target="_blank">Parker M.</a>
     </footer>
 </body>
 </html>
@@ -35,6 +67,7 @@
     .flower {
         width: 400px;
         height: 400px;
+        -webkit-animation: pulse 4.5s infinite;
         animation: pulse 4.5s infinite;
     }
 
@@ -44,6 +77,19 @@
             height: 200px;
         }
     }
+
+    @-webkit-keyframes pulse {
+        0% {
+            -webkit-transform: scale(1);
+        }
+        50% {
+            -webkit-transform: scale(1.05);
+        }
+        100% {
+            -webkit-transform: scale(1);
+        }
+    }
+
 
     @keyframes pulse {
         0% {
@@ -67,6 +113,13 @@
         font-family: Arial;
         font-size: 14px;
         padding-bottom: 100px;
+    }
+
+    @media only screen and (max-width: 600px) {
+        footer {
+            font-size: 12px;
+            padding-bottom: 50px;
+        }
     }
 
     .footer-link {
