@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>elijahmvaldez</title>
+    <link rel="icon" type="image/png" href="flower.png">
+</head>
+<body>
+    <div class="img-div">
+        <a href="https://ffm.to/ilovethisep" target="_blank" onclick="playAudio();">
+            <img class="flower" src="flower.png">
+        </a>
+    </div>
+
+    <footer>
+        © 2023 Elijah Valdez. All rights reserved. Made with <a class="footer-link" href="https://github.com/fiji05" target="_blank">Parker M.</a>
+    </footer>
+</body>
+</html>
+
+<style>
+    html {
+        background-color: black;
+    }
+
+    .img-div {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .flower {
+        width: 400px;
+        height: 400px;
+        animation: pulse 4.5s infinite;
+    }
+
+    @media only screen and (max-width: 600px) {
+        .flower {
+            width: 200px;
+            height: 200px;
+        }
+    }
+
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.05);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    footer {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        text-align: center;
+        color: #ffdec9;
+        font-family: Arial;
+        font-size: 14px;
+        padding-bottom: 100px;
+    }
+
+    .footer-link {
+        color: #ffdec9;
+        text-decoration: underline;
+    }
+
+</style>
+
+<script>
+    var audio = new Audio('start.wav');
+    function playAudio() {
+        audio.volume = 0.5;
+        audio.play();
+    }
+</script>
