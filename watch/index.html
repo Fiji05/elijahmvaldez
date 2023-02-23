@@ -8,10 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Elijah Valdez</title>
 
-    <link rel="icon" type="image/png" href="flower.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="flower.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="flower.png" />
-    <link rel="apple-touch-icon" sizes="256x256" href="flower.png" />
+    <link rel="icon" type="image/png" href="/img/flower.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/img/flower.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/flower.png" />
+    <link rel="apple-touch-icon" sizes="256x256" href="/img/flower.png" />
 
     <meta name="keywords" content="elijahmvaldez, music, alternative, independent, texas">
     <meta name="robots" content="index, follow">
@@ -19,7 +19,7 @@
     <meta name="apple-mobile-web-app-title" content="Elijah Valdez" />
 
     <meta property="og:title" content="Elijah Valdez" />
-    <meta property="og:url" content="https://elijahmvaldez.com" />
+    <meta property="og:url" content="https://elijahmvaldez.com/watch" />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="https://elijahmvaldez.com/embed-img.png" />
     <meta property="og:description" content="I Love This EP out early 2023. Pre-save now." />
@@ -31,33 +31,25 @@
 
     <meta name="twitter:card" content="summary" />
 </head>
-
 <body>
     <nav>
+        <a id="watch-mobile" hidden>WATCH</a>
         <a id="burger-icon" hidden><i class="fa-solid fa-bars"></i></a>
         <a id="x-icon" hidden><i class="fa-solid fa-times"></i></a>
         <a href="https://shop.elijahmvaldez.com" id="nav">SHOP</a>
         <a href="https://ffm.to/ilovethisep" id="nav">STREAM</a>
-        <a href="https://elijahmvaldez.com" id="nav" class="nav-img"><img src="img/flower.png"></a>
+        <a href="https://elijahmvaldez.com" id="nav" class="nav-img"><img src="/img/flower.png"></a>
         <a href="/lyrics" id="nav">LYRICS</a>
         <a href="/watch" id="nav">WATCH</a>
     </nav>
 
-    <div class="center-img">
-        <a href="https://ffm.to/ilovethisep" target="_blank"><img src="img/i-love-this-ep.png" width="400" height="400"></a>
+    <div id="video-list">
     </div>
 
     <footer>
-        <a href="https://twitter.com/elijahmvaldez" target="_blank"><i class="fa-brands fa-twitter"></i></a>
-        <a href="https://www.instagram.com/elijahmvaldez/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-        <a href="https://www.youtube.com/elijahmvaldez" target="_blank"><i class="fa-brands fa-youtube"></i></a>
-        <a href="https://music.apple.com/us/artist/elijah-valdez/1583171428" target="_blank"><i class="fa-brands fa-apple"></i></a>
-        <a href="https://open.spotify.com/artist/18SYMZu7DqrDBqxUTYvjGz" target="_blank"><i class="fa-brands fa-spotify"></i></a>
-        <br>
         © <span id="current-year"></span> Elijah Valdez. All rights reserved. Made by <a class="footer-link" href="https://github.com/fiji05" target="_blank">Parker M.</a>
     </footer>
 </body>
-
 </html>
 
 <style>
@@ -94,50 +86,44 @@
         height: 125px;
     }
 
+    @media only screen and (max-width: 600px) {
+        nav {
+            padding-top: 15px;
+        }
+        #watch-mobile {
+            display: block;
+        }
+    }
+
     #burger-icon i {
         position: absolute;
-        padding: 25px;
+        padding: 50px;
         top: 0;
         right: 0;
     }
 
     #x-icon i {
         position: absolute;
-        padding: 25px;
+        padding: 50px;
         top: 0;
         right: 0;
     }
 
-    /* Vertically and horizontally center the "center-img" class */
-    .center-img {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        -webkit-transform: translate(-50%, -50%);
-        transform: translate(-50%, -50%);
+    iframe {
+        width: 55%;
+        aspect-ratio: 16/9;
+        border: none;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        padding-top: 50px;
+        padding-bottom: 25px;
     }
 
     @media only screen and (max-width: 600px) {
-        .center-img img {
-            width: 300px;
-            height: 300px;
-        }
-    }
-
-    i {
-        color: #ffdec9;
-        font-size: 40px;
-        padding: 80px 20px;
-    }
-
-    i:hover {
-        color: #a38484;
-    }
-
-    @media only screen and (max-width: 600px) {
-        i {
-            font-size: 40px;
-            padding: 80px 10px;
+        iframe {
+            width: 80%;
+            padding-top: 20px;
         }
     }
 
@@ -167,6 +153,11 @@
 </style>
 
 <script type="text/javascript">
+    // On page load, run the getYouTubeVideos() function
+    window.onload = function () {
+        getYoutubeVideos();
+    };
+
     // Set the current year in the footer
     document.getElementById("current-year").innerHTML = new Date().getFullYear();
 
@@ -240,5 +231,36 @@
             document.getElementById("x-icon").style.display = "none";
             document.getElementById("burger-icon").style.display = "inline-block";
         });
+    }
+
+    function getYoutubeVideos() {
+        // Get the top 15 videos from the following XML file - https://www.youtube.com/feeds/videos.xml?playlist_id=PLhpzrQbDckmOiiVjUtmuCQ93Kv5l44Z0Q
+        var xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = function(){
+            if (xhr.readyState==4 && xhr.status==200)
+            {
+                var data = JSON.parse(xhr.responseText);
+                // Get the length of the 'items' array
+                var length = data.items.length;
+                // For every item in the array, get the url
+                for (var i = 0; i < length; i++) {
+                    var url = data.items[i].link;
+                    // Create a new iframe element
+                    var iframe = document.createElement("iframe");
+                    // Set the src attribute of the iframe to the url
+                    url = url.replace("watch?v=", "embed/");
+                    iframe.setAttribute("src", url);
+                    // Append the iframe to the 'video-list' div
+                    document.getElementById("video-list").appendChild(iframe);
+                }
+            }
+        };
+        xhr.open(
+            'GET',
+            'https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fwww.youtube.com%2Ffeeds%2Fvideos.xml%3Fplaylist_id%3DPLhpzrQbDckmOiiVjUtmuCQ93Kv5l44Z0Q',
+            false
+        );
+        xhr.send();
     }
 </script>
