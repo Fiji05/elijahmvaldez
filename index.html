@@ -8,10 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Elijah Valdez</title>
 
-    <link rel="icon" type="image/png" href="flower.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="flower.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="flower.png" />
-    <link rel="apple-touch-icon" sizes="256x256" href="flower.png" />
+    <link rel="icon" type="image/png" href="img/flower.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="img/flower.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="img/flower.png" />
+    <link rel="apple-touch-icon" sizes="256x256" href="img/flower.png" />
 
     <meta name="keywords" content="elijahmvaldez, music, alternative, independent, texas">
     <meta name="robots" content="index, follow">
@@ -36,15 +36,18 @@
     <nav>
         <a id="burger-icon" hidden><i class="fa-solid fa-bars"></i></a>
         <a id="x-icon" hidden><i class="fa-solid fa-times"></i></a>
+
         <a href="https://shop.elijahmvaldez.com" id="nav">SHOP</a>
         <a href="https://ffm.to/ilovethisep" id="nav">STREAM</a>
-        <a href="https://elijahmvaldez.com" id="nav" class="nav-img"><img src="img/flower.png"></a>
+
+        <a href="https://elijahmvaldez.com" id="nav-img"><img src="img/flower.png"></a>
+
         <a href="/lyrics" id="nav">LYRICS</a>
         <a href="/watch" id="nav">WATCH</a>
     </nav>
 
     <div class="center-img">
-        <a href="https://ffm.to/ilovethisep" target="_blank"><img src="img/i-love-this-ep.png" width="400" height="400"></a>
+        <a href="https://ffm.to/ilovethisep" target="_blank"><img src="img/i-love-this-ep-full.png" width="400" height="400"></a>
     </div>
 
     <footer>
@@ -87,7 +90,7 @@
         text-decoration: underline;
     }
 
-    .nav-img img {
+    #nav-img img {
         display: inline-block;
         vertical-align: middle;
         width: 125px;
@@ -96,14 +99,16 @@
 
     #burger-icon i {
         position: absolute;
-        padding: 25px;
+        padding-top: 45px;
+        padding-right: 25px;
         top: 0;
         right: 0;
     }
 
     #x-icon i {
         position: absolute;
-        padding: 25px;
+        padding-top: 45px;
+        padding-right: 25px;        
         top: 0;
         right: 0;
     }
@@ -142,7 +147,7 @@
     }
 
     footer {
-        position: relative;
+        position: absolute;
         bottom: 0;
         left: 0;
         right: 0;
@@ -172,73 +177,81 @@
 
     // When the user is on a mobile device, change the navbar to a hamburger menu
     if (window.innerWidth <= 600) {
-        document.querySelectorAll("#nav").forEach(function (nav) {
-            nav.style.display = "none";
+        // There are multiple elements with the "nav" ID, so we need to loop through them and hide them
+        var navElements = document.querySelectorAll("#nav");
+            for (var i = 0; i < navElements.length; i++) {
+                navElements[i].style.display = "none";            
+            }
+        // Get nav-img
+        var navImg = document.getElementById("nav-img");
+        var img = navImg.querySelector("img");
+        // Now we need to move the "nav-img" element to the left side of the screen and size it down
+        img.style.position = "absolute";
+        img.style.left = "0";
+        img.style.top = "0";
+        img.style.padding = "25px";
+        img.style.width = "75px";
+        img.style.height = "75px";
+
+        // Define the "x" icon
+        var xIcon = document.getElementById("x-icon");
+
+        // Now we can show the hamburger menu
+        var burgerIcon = document.getElementById("burger-icon");
+        burgerIcon.style.display = "block";
+
+
+        // When the user clicks the hamburger menu, show the nav elements
+        burgerIcon.addEventListener("click", function() {
+            // Show the nav elements
+            for (var i = 0; i < navElements.length; i++) {
+                navElements[i].style.display = "block";
+            }
+
+            // Calculate the amount of padding needed dependant on the phone height
+            // This will allow it to center consistently across mobile devices
+            var nav = document.getElementsByTagName("nav")[0]
+            var navHeight = nav.offsetHeight;
+            var padHeight = (window.innerHeight - navHeight)/2;
+            nav.style.paddingTop = padHeight + "px";
+
+            // Fade out the background elements
+            var pageElements = document.querySelectorAll("body > *:not(nav)");
+            for (var i = 0; i < pageElements.length; i++) {
+                pageElements[i].style.pointerEvents = "none";
+                pageElements[i].style.transition = "all 0.3s";
+                pageElements[i].style.opacity = "0";
+            }
+
+            // Hide the hamburger menu
+            burgerIcon.style.display = "none";
+            // Show the "x" icon
+            xIcon.style.display = "block";
         });
-        // Unhide the nav-img and then move it to the top left of the screen and downsize it
-        document.querySelectorAll(".nav-img").forEach(function (nav) {
-            nav.style.display = "block";
-            nav.style.position = "absolute";
-            nav.style.top = "0";
-            nav.style.left = "0";
-            // Get the img element inside the nav-img div
-            var img = nav.querySelector("img");
-            img.style.width = "75px";
-            img.style.height = "75px";
-        });
 
-        document.getElementById("burger-icon").style.display = "inline-block";
+        // When the user clicks the "x" icon, hide the nav elements
+        xIcon.addEventListener("click", function() {
+            // Hide the nav elements
+            for (var i = 0; i < navElements.length; i++) {
+                navElements[i].style.display = "none";
+            }
 
-        // When the user clicks on the hamburger menu icon, change the background of the whole
-        // screen to black
-        document.getElementById("burger-icon").addEventListener("click", function () {
-            // Change the navbar size to 100%
-            nav = document.querySelector("nav");
-            nav.style.backgroundColor = "black";
-            nav.style.height = "100%";
-            nav.style.width = "100%";
-            nav.style.position = "fixed";
-            nav.style.top = "0";
-            nav.style.left = "0";
-            nav.style.zIndex = "1";
-            nav.style.transition = "all 0.3s ease-in-out";
-            nav.style.paddingTop = "22px";
+            // Reset the padding
+            var nav = document.getElementsByTagName("nav")[0];
+            nav.style.paddingTop = "30px";
 
-            // Show the navbar links again, delay it by 0.5 seconds
-            setTimeout(function () {
-                document.querySelectorAll("#nav").forEach(function (nav) {
-                    nav.style.display = "block";
-                });
-            }, 200);
-            // Hide the hamburger menu icon and show the X icon
-            document.getElementById("burger-icon").style.display = "none";
-            document.getElementById("x-icon").style.display = "inline-block";
-        });
+            // Re-fade in the background elements
+            var pageElements = document.querySelectorAll("body > *:not(nav)");
+            for (var i = 0; i < pageElements.length; i++) {
+                pageElements[i].style.pointerEvents = "auto";
+                pageElements[i].style.transition = "all 0.3s";
+                pageElements[i].style.opacity = "1";
+            }
 
-        document.getElementById("x-icon").addEventListener("click", function () {
-            // Change the background to transparent
-            nav = document.querySelector("nav");
-            nav.style.backgroundColor = "transparent";
-            nav.style.height = "125px";
-            nav.style.position = "relative";
-            document.querySelectorAll("#nav").forEach(function (nav) {
-                nav.style.display = "none";
-            });
-            // Unhide the nav-img and then move it to the top left of the screen and downsize it
-            document.querySelectorAll(".nav-img").forEach(function (nav) {
-                nav.style.display = "block";
-                nav.style.position = "absolute";
-                nav.style.top = "0";
-                nav.style.left = "0";
-                // Get the img element inside the nav-img div
-                var img = nav.querySelector("img");
-                img.style.width = "75px";
-                img.style.height = "75px";
-
-            });
-            // Hide the X icon and show the hamburger menu icon
-            document.getElementById("x-icon").style.display = "none";
-            document.getElementById("burger-icon").style.display = "inline-block";
+            // Hide the "x" icon
+            xIcon.style.display = "none";
+            // Show the hamburger menu
+            burgerIcon.style.display = "block";
         });
     }
 </script>
