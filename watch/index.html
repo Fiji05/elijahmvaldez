@@ -40,7 +40,7 @@
         <a href="https://shop.elijahmvaldez.com" id="nav">SHOP</a>
         <a href="https://ffm.to/ilovethisep" id="nav">STREAM</a>
 
-        <a href="https://elijahmvaldez.com" id="nav-img"><img src="/img/flower.png"></a>
+        <a href="/" id="nav-img"><img src="/img/flower.png"></a>
 
         <a href="/lyrics" id="nav">LYRICS</a>
         <a href="/watch" id="nav">WATCH</a>
@@ -100,7 +100,7 @@
     #x-icon i {
         position: absolute;
         padding-top: 45px;
-        padding-right: 25px;        
+        padding-right: 25px;
         top: 0;
         right: 0;
     }
@@ -179,11 +179,13 @@
         // There are multiple elements with the "nav" ID, so we need to loop through them and hide them
         var navElements = document.querySelectorAll("#nav");
             for (var i = 0; i < navElements.length; i++) {
-                navElements[i].style.display = "none";            
+                navElements[i].style.display = "none";
             }
         // Get nav-img
         var navImg = document.getElementById("nav-img");
         var img = navImg.querySelector("img");
+        // Remove the parent of the "nav-img" element, which is defined as "navImg"
+        navImg.style.padding = "0";
         // Now we need to move the "nav-img" element to the left side of the screen and size it down
         img.style.position = "absolute";
         img.style.left = "0";
@@ -206,7 +208,6 @@
             for (var i = 0; i < navElements.length; i++) {
                 navElements[i].style.display = "block";
             }
-
             // Calculate the amount of padding needed dependant on the phone height
             // This will allow it to center consistently across mobile devices
             var nav = document.getElementsByTagName("nav")[0]
@@ -262,6 +263,8 @@
             if (xhr.readyState==4 && xhr.status==200)
             {
                 var data = JSON.parse(xhr.responseText);
+                // Reverse the data.items array so that the most recent videos are first
+                data.items.reverse();
                 // Get the length of the 'items' array
                 var length = data.items.length;
                 // For every item in the array, get the url
